@@ -1,4 +1,4 @@
-package com.controller;
+package com.bae.controller;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CustomerController {
 		return service.findAll();
 	}
 
-	@GetMapping
+	@GetMapping("/test")
 	public String test() {
 		return "Hello world!";
 	}
