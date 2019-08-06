@@ -80,6 +80,7 @@ public class CustomerServiceTest {
 		customerList.add(MOCK_CUSTOMER_A);
 		customerList.add(MOCK_CUSTOMER_B);
 		Mockito.when(repo.findAll()).thenReturn(customerList);
+		assertEquals(customerList, service.findAll());
 	}
 
 	@Test

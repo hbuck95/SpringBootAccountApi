@@ -3,7 +3,10 @@ package com.bae.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.bae.entity.Customer;
 import com.bae.repository.CustomerRepository;
@@ -11,10 +14,12 @@ import com.bae.repository.CustomerRepository;
 @Service
 public class CustomerServiceImplementation implements CustomerService {
 	private CustomerRepository repo;
+	private RestTemplate template;
 
 	@Autowired
-	public CustomerServiceImplementation(CustomerRepository repo) {
+	public CustomerServiceImplementation(CustomerRepository repo, RestTemplate template) {
 		this.repo = repo;
+		this.template = template;
 	}
 
 	@Override
@@ -35,6 +40,18 @@ public class CustomerServiceImplementation implements CustomerService {
 
 	@Override
 	public String createCustomer(Customer customer) {
+		ResponseEntity<String> accountNumber = template.exchange("http://localhost:8082/numgen", HttpMethod.GET, null,
+				String.class);
+
+		System.out.println(accountNumber.getBody());
+
+		ResponseEntity<Integer> prize = template.exchange("http://localhost:8081/prizegen/" + accountNumber.getBody(),
+				HttpMethod.GET, null, Integer.class);
+
+		System.out.println(accountNumber.getBody());
+
+		customer.setAccountNumber(accountNumber.getBody());
+		customer.setPrize(prize.getBody());
 		repo.save(customer);
 		return "Customer created.";
 	}
