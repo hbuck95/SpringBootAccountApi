@@ -22,4 +22,30 @@ public class CustomerServiceImplementation implements CustomerService {
 		return (List<Customer>) repo.findAll();
 	}
 
+	@Override
+	public String deleteCustomer(long id) {
+		repo.deleteById(id);
+		return "Customer deleted.";
+	}
+
+	@Override
+	public Customer findCustomer(long id) {
+		return (Customer) repo.findById(id).get();
+	}
+
+	@Override
+	public String createCustomer(Customer customer) {
+		repo.save(customer);
+		return "Customer created.";
+	}
+
+	@Override
+	public Customer updateCustomer(Customer customer) {
+		Customer customerToUpdate = (Customer) repo.findById(customer.id).get();
+		customerToUpdate.setFirstName(customer.getFirstName());
+		customerToUpdate.setLastName(customer.getLastName());
+		repo.save(customerToUpdate);
+		return customerToUpdate;
+	}
+
 }
