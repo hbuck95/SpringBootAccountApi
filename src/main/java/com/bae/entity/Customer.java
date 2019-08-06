@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 @Entity
 @Table(name = "Customers")
 public class Customer {
@@ -19,9 +17,9 @@ public class Customer {
 	public String firstName;
 	public String lastName;
 	public String accountNumber;
+	public int prize;
 
 	public Customer() {
-		this.accountNumber = generateAccountNumber();
 	}
 
 	public Customer(long id, String firstName, String lastName, String accountNumber) {
@@ -33,13 +31,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return String.format("Customer[id=%s, firstName='%s', lastName='%s', accNo='%s']", id, firstName, lastName,
-				accountNumber);
-	}
-
-	private String generateAccountNumber() {
-
-		return RandomStringUtils.randomAlphanumeric(10);
+		return String.format("Customer[id=%s, firstName='%s', lastName='%s', accountNumber='%s', prize='%s']", id,
+				firstName, lastName, accountNumber, prize);
 	}
 
 	public String getFirstName() {
@@ -68,6 +61,14 @@ public class Customer {
 
 	public Long getId() {
 		return id;
+	}
+
+	public int getPrize() {
+		return prize;
+	}
+
+	public void setPrize(int prize) {
+		this.prize = prize;
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.bae.entity.Customer;
 import com.bae.service.CustomerService;
@@ -20,10 +21,12 @@ import com.bae.service.CustomerService;
 public class CustomerController {
 
 	private CustomerService service;
+	private RestTemplate template;
 
 	@Autowired
-	public CustomerController(CustomerService service) {
+	public CustomerController(CustomerService service, RestTemplate template) {
 		this.service = service;
+		this.template = template;
 	}
 
 	@GetMapping("/all")
