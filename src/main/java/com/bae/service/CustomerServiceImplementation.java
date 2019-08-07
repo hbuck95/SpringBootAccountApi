@@ -3,8 +3,6 @@ package com.bae.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,30 +26,19 @@ public class CustomerServiceImplementation implements CustomerService {
 	}
 
 	@Override
-	public String deleteCustomer(long id) {
+	public String deleteCustomer(String id) {
 		repo.deleteById(id);
 		return "Customer deleted.";
 	}
 
 	@Override
-	public Customer findCustomer(long id) {
+	public Customer findCustomer(String id) {
 		return (Customer) repo.findById(id).get();
 	}
 
 	@Override
 	public String createCustomer(Customer customer) {
-		ResponseEntity<String> accountNumber = template.exchange("http://localhost:8082/numgen", HttpMethod.GET, null,
-				String.class);
-
-		System.out.println(accountNumber.getBody());
-
-		ResponseEntity<Integer> prize = template.exchange("http://localhost:8081/prizegen/" + accountNumber.getBody(),
-				HttpMethod.GET, null, Integer.class);
-
-		System.out.println(accountNumber.getBody());
-
-		customer.setAccountNumber(accountNumber.getBody());
-		customer.setPrize(prize.getBody());
+		// return repo.save(customer);
 		repo.save(customer);
 		return "Customer created.";
 	}

@@ -1,15 +1,7 @@
 package com.bae.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class SentCustomer {
 
-@Entity
-@Table(name = "Customers")
-public class Customer {
-
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
 	public String id;
 
 	public String firstName;
@@ -17,14 +9,15 @@ public class Customer {
 	public String accountNumber;
 	public int prize;
 
-	public Customer() {
+	public SentCustomer() {
 	}
 
-	public Customer(String id, String firstName, String lastName, String accountNumber) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.accountNumber = accountNumber;
+	public SentCustomer(Customer c) {
+		this.id = c.getId();
+		this.firstName = c.getFirstName();
+		this.lastName = c.getLastName();
+		this.accountNumber = c.getAccountNumber();
+		this.prize = c.getPrize();
 	}
 
 	@Override
