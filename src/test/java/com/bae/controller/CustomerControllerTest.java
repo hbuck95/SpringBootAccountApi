@@ -27,9 +27,9 @@ public class CustomerControllerTest {
 
 	private List<Customer> customerList;
 
-	private static final Customer MOCK_CUSTOMER_A = new Customer(1L, "Fred", "Derf", "abc123");
-	private static final Customer UPDATED_MOCK_CUSTOMER_A = new Customer(1L, "Mike", "Truk", "abc123");
-	private static final Customer MOCK_CUSTOMER_B = new Customer(2L, "Bobson", "Dugnutt", "def456");
+	private static final Customer MOCK_CUSTOMER_A = new Customer("1", "Fred", "Derf", "abc123");
+	private static final Customer UPDATED_MOCK_CUSTOMER_A = new Customer("1", "Mike", "Truk", "abc123");
+	private static final Customer MOCK_CUSTOMER_B = new Customer("2", "Bobson", "Dugnutt", "def456");
 	private static final String MOCK_CREATE_CUSTOMER_RESPONSE = "Customer created.";
 	private static final String MOCK_DELETE_CUSTOMER_RESPONSE = "Customer deleted.";
 

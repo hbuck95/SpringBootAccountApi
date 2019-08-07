@@ -9,9 +9,9 @@ public interface CustomerService {
 
 	public Customer updateCustomer(Customer customer);
 
-	public String deleteCustomer(long id);
+	public String deleteCustomer(String id);
 
-	public Customer findCustomer(long id);
+	public Customer findCustomer(String id);
 
 	public String createCustomer(Customer customer);
 
