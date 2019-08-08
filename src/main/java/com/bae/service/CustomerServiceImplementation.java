@@ -39,8 +39,9 @@ public class CustomerServiceImplementation implements CustomerService {
 	@Override
 	public String createCustomer(Customer customer) {
 		// return repo.save(customer);
-		repo.save(customer);
-		return "Customer created.";
+		// repo.save(customer);
+		return "{\"Status\":\"Customer created\",\"Prize\":" + customer.getPrize() + "}";
+		// return "Customer created.";
 	}
 
 	@Override

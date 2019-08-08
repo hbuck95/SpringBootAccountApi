@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.bae.entity.Customer;
-import com.bae.entity.SentCustomer;
 import com.bae.service.CustomerService;
 
 @RestController
@@ -45,21 +44,23 @@ public class CustomerController {
 		return service.updateCustomer(customer);
 	}
 
-	@PostMapping("/create")
+	@PostMapping(value = "/create", consumes = "application/json")
 	public String createCustomer(@RequestBody Customer customer) {
 
+		// Send a GET request and to the numgen service to generate a random account
+		// number
 		ResponseEntity<String> accountNumber = template.exchange("http://localhost:8082/numgen", HttpMethod.GET, null,
 				String.class);
 
-		System.out.println(accountNumber.getBody());
-
+		// Set a GET request to prizegen to determine whether or not the user has won a
+		// prize based on their account number
 		ResponseEntity<Integer> prize = template.exchange("http://localhost:8081/prizegen/" + accountNumber.getBody(),
 				HttpMethod.GET, null, Integer.class);
 
-		System.out.println(accountNumber.getBody());
-
 		customer.setAccountNumber(accountNumber.getBody());
 		customer.setPrize(prize.getBody());
+		sendToQueue(customer);
+
 		return service.createCustomer(customer);
 	}
 
@@ -73,9 +74,10 @@ public class CustomerController {
 		return "Hello world!";
 	}
 
+	// Send an object to the queue
 	private void sendToQueue(Customer customer) {
-		SentCustomer customerToStore = new SentCustomer(customer);
-		jmsTemplate.convertAndSend("AccountQueue", customerToStore);
+		// SentCustomer customerToStore = new SentCustomer(customer);
+		jmsTemplate.convertAndSend("AccountQueue", customer);
 	}
 
 }

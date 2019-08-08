@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Table(name = "Customers")
 public class Customer {
 
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	public String id;
 
