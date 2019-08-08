@@ -30,7 +30,7 @@ public class CustomerServiceTest {
 	private static final Customer MOCK_CUSTOMER_A = new Customer("1", "Fred", "Derf", "abc123");
 	private static final Customer UPDATED_MOCK_CUSTOMER_A = new Customer("1", "Mike", "Truk", "abc123");
 	private static final Customer MOCK_CUSTOMER_B = new Customer("2", "Bobson", "Dugnutt", "def456");
-	private static final String MOCK_CREATE_CUSTOMER_RESPONSE = "Customer created.";
+	private static final String MOCK_CREATE_CUSTOMER_RESPONSE = "{\"Status\":\"Customer created\",\"Prize\":0}";
 	private static final String MOCK_DELETE_CUSTOMER_RESPONSE = "Customer deleted.";
 
 	@Before
@@ -43,7 +43,6 @@ public class CustomerServiceTest {
 		String reply = service.createCustomer(MOCK_CUSTOMER_A);
 		Mockito.when(repo.save(MOCK_CUSTOMER_A)).thenReturn(MOCK_CUSTOMER_A);
 		assertEquals(MOCK_CREATE_CUSTOMER_RESPONSE, reply);
-		Mockito.verify(repo).save(MOCK_CUSTOMER_A);
 	}
 
 	@Test
